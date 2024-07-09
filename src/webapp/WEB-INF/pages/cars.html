@@ -7,9 +7,20 @@
 </head>
 <body>
 <div>
-    <th:block th:each="car : ${cars}">
-        <h1 th:text="${car.toString()}"></h1>
-    </th:block>
+    <table th:border="1">
+        <thead>
+            <th>Model</th>
+            <th>Series</th>
+            <th>YoP</th>
+        </thead>
+        <tbody>
+            <tr th:each="car : ${cars}">
+                <td th:utext="${car.model}">Model</td>
+                <td th:utext="${car.series}">Series</td>
+                <td th:utext="${car.yearOfProduction}">YoP</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
