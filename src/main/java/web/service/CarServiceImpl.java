@@ -20,7 +20,7 @@ public class CarServiceImpl implements CarService {
 
 
 
-    public List<Car> getCarList(int count) {
+    public List<Car> getCarsByCount(int count) {
         if (count <= 0 || count >= 5) {
             return carList;
         } else {
