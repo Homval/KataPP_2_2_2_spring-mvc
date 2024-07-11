@@ -6,31 +6,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.models.Car;
-import web.service.CarService;
+import web.service.CarServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CarController {
+    private final CarServiceImpl carService;
 
     @Autowired
-    private CarService carService;
+    public CarController(CarServiceImpl carService) {
+        this.carService = carService;
+    }
 
     @GetMapping(value = "/cars")
-    public String getCarsList(@RequestParam(value = "count", defaultValue = "5") String count, Model model) {
-        List<Car> cars = carService.getCarList();
+    public String getCarsList(@RequestParam(value = "count", defaultValue = "5") int count, Model model) {
+        List<Car> cars = carService.getCarList(count);
 
-        int intCount = Integer.parseInt(count);
-        if (intCount == 0 || intCount >= 5) {
-            model.addAttribute("cars", cars);
-        } else {
-            List<Car> outputCars = new ArrayList<>();
-            for (int i = 0; i < intCount; i++) {
-                outputCars.add(cars.get(i));
-            }
-            model.addAttribute("cars", outputCars);
-        }
+        model.addAttribute("cars", cars);
+
         return "/cars";
     }
 
